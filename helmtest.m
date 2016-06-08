@@ -27,8 +27,8 @@ if size(yTest, 2) == 1
     scores = compute_score(model, xTest);
     for threshold = thresh
         yClassified = scores;
-        yClassified(yClassified > threshold) = 1;
-        yClassified(yClassified <= threshold) = -1;
+        yClassified(scores > threshold) = 1;
+        yClassified(scores <= threshold) = -1;
         truePos  = sum((yClassified == 1) & (yTest == 1));
         falsePos = sum((yClassified == 1) & (yTest == -1));
         falseNeg = sum((yClassified == -1) & (yTest == 1));
