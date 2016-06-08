@@ -43,7 +43,9 @@ verbose = opts.verbose;
 
 % numAutoencoder gives the number of layers for the autoencoder
 numAutoencoder = numel(numNeuron);
-
+if numAutoencoder == 0
+    warning('Not using autoencoders, use ELM only.');
+end
 
 
 ae = struct('beta', []);
