@@ -34,16 +34,18 @@ if size(yTest, 2) == 1
         falseNeg = sum((yClassified == -1) & (yTest == 1));
         trueNeg  = sum((yClassified == -1) & (yTest == -1));
         accuracy = (truePos+trueNeg)/numel(yClassified);
-        probClassification = truePos / (truePos+falseNeg);
+        probClassification = truePos / (truePos+falseNeg);  % or recall
         falseAlarm = falsePos / (falsePos+trueNeg);
+        precision = truePos / (truePos+falsePos);
         if verbose
             fprintf('Threshold: %.4f\n', threshold);
             fprintf('Accuracy: %.4f\n', accuracy);
-            fprintf('Probability of Classification: %.4f\n', probClassification);
+            fprintf('Probability of Classification (recall): %.4f\n', probClassification);
             fprintf('False Alarm: %.4f\n', falseAlarm);
+            fprintf('precision: %.4f\n', precision);
             fprintf('Elapsed time: %.2fs.\n', toc(th));
         end
-    statistics = [statistics; threshold, probClassification, falseAlarm, accuracy];
+    statistics = [statistics; threshold, probClassification, falseAlarm, precision, accuracy];
     end
 else
     yClassified = -ones(size(yTest));
