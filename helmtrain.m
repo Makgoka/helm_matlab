@@ -9,6 +9,8 @@ function hElmModel = helmtrain(xTrain, yTrain, ...
 % lambda is the weight term for autoencoders.
 % gamma is the regularity weight for ELM.
 
+assert(~any(isnan(xTrain(:))));
+
 fprintf('\nBegin training H-ELM model.\n');
 %%%%%%%%%%%%% variable settings.
 

@@ -1,5 +1,6 @@
 function [yClassified, statistics] = helmtest(model, xTest, yTest, varargin)
 
+assert(~any(isnan(xTest(:))));
 
 % Assume xTest \in R^{N x p}, where N is the number of test samaples.
 
@@ -61,10 +62,25 @@ else
     if verbose
         fprintf('Accuracy: %.4f\n', accuracy);
         fprintf('Elapsed time: %.2fs.\n', toc(th));
+        confusion_matrix(one_hot_to_label(yTest), pos);
     end
 end
 
 
 
 
+end
+
+
+function label = one_hot_to_label(one_hot)
+% Assume the one hot encoding is -1 or 1.
+label = zeros(size(one_hot, 1), 1);
+for i = 1:size(one_hot, 1)
+    for j = 1:size(one_hot, 2)
+        if one_hot(i, j) == 1
+            label(i) = j;
+            break;
+        end
+    end
+end
 end
